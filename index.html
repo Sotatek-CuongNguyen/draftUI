@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Option Box</title>
+  <style>
+    .box {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .options {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <!-- Initial Box -->
+    <div class="box">
+      <div>
+        <label><input type="radio" name="type-0" value="dropdown" checked> Dropdown</label>
+        <label><input type="radio" name="type-0" value="checkbox"> Checkbox</label>
+        <label><input type="radio" name="type-0" value="radio"> Radio</label>
+      </div>
+      <div class="options">
+        <button type="button" onclick="addOption(this)">Add Option</button>
+      </div>
+    </div>
+  </div>
+  <button id="addBox" type="button">Add Box</button>
+  <button id="removeBox" type="button">Remove Box</button>
+
+  <script>
+    let boxCount = 1;
+
+    function addOption(button) {
+      const optionsDiv = button.parentElement;
+      const newOption = document.createElement('div');
+      newOption.innerHTML = `
+        <input type="text" placeholder="Option text">
+        <button type="button" onclick="editOption(this)">Edit</button>
+        <button type="button" onclick="removeOption(this)">Remove</button>
+      `;
+      optionsDiv.appendChild(newOption);
+    }
+
+    function editOption(button) {
+      const input = button.previousElementSibling;
+      input.focus();
+    }
+
+    function removeOption(button) {
+      const optionDiv = button.parentElement;
+      optionDiv.remove();
+    }
+
+    document.getElementById('addBox').addEventListener('click', () => {
+      const container = document.getElementById('container');
+      const newBox = document.createElement('div');
+      newBox.className = 'box';
+      newBox.innerHTML = `
+        <div>
+          <label><input type="radio" name="type-${boxCount}" value="dropdown" checked> Dropdown</label>
+          <label><input type="radio" name="type-${boxCount}" value="checkbox"> Checkbox</label>
+          <label><input type="radio" name="type-${boxCount}" value="radio"> Radio</label>
+        </div>
+        <div class="options">
+          <button type="button" onclick="addOption(this)">Add Option</button>
+        </div>
+      `;
+      container.appendChild(newBox);
+      boxCount++;
+    });
+
+    document.getElementById('removeBox').addEventListener('click', () => {
+      const container = document.getElementById('container');
+      const boxes = container.getElementsByClassName('box');
+      if (boxes.length > 1) {
+        container.removeChild(boxes[boxes.length - 1]);
+      } else {
+        alert('You must keep at least one box!');
+      }
+    });
+  </script>
+</body>
+</html>
