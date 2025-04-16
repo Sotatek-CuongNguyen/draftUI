@@ -1,206 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Option Box</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    .box {
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      width: 400px;
-    }
-    .box-title-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      margin-top: 10px;
-      border-top: 1px solid #ccc;
-      padding-top: 10px ;
-    }
-    .box-title {
-      font-weight: bold;
-      margin: 0;
-    }
-    .box-title-input {
-      flex: 1;
-      margin-right: 10px;
-    }
-    .options {
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid #ccc;
-    }
-    .add-option-container {
-      display: flex;
-      align-items: center;
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid #ccc;
-    }
-    .add-option-container input {
-      flex: 1;
-      margin-right: 10px;
-      padding: 5px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-    }
-    .add-option-container button {
-      padding: 5px 10px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-    .add-option-container button:hover {
-      background-color: #0056b3;
-    }
-    .optionBox {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 5px;
-    }
-    .optionBox p {
-      margin: 0;
-      flex: 1;
-    }
-    .optionBox input {
-      flex: 1;
-      margin-right: 10px;
-    }
-    .optionBox button {
-      margin-left: 5px;
-    }
-    #addBox, #removeBox {
-      margin-top: 10px;
-      padding: 5px 10px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-    #addBox:hover, #removeBox:hover {
-      background-color: #0056b3;
-    }
-  </style>
-</head>
-<body>
-  <div id="container">
-    <!-- Initial Box -->
-    <div class="box">
-      <div>
-        <label><input type="radio" name="type-0" value="dropdown" checked> Dropdown</label>
-        <label><input type="radio" name="type-0" value="checkbox"> Checkbox</label>
-        <label><input type="radio" name="type-0" value="radio"> Radio</label>
-      </div>
-      <div class="box-title-container">
-        <p class="box-title">Related Information</p>
-        <input type="text" class="box-title-input" style="display: none;" placeholder="Enter box title">
-        <button type="button" onclick="toggleTitleEdit(this)">Edit</button>
-      </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Option Box</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .box {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        width: 450px;
+      }
+      .box-title-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
+      }
+      .box-title {
+        font-weight: bold;
+        margin: 0;
+      }
+      .box-title-input {
+        flex: 1;
+        margin-right: 10px;
+      }
+      .options {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #ccc;
+      }
+      .add-option-container {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #ccc;
+      }
+      .add-option-container input {
+        flex: 1;
+        margin-right: 10px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+      .add-option-container button {
+        padding: 5px 10px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      .add-option-container button:hover {
+        background-color: #0056b3;
+      }
+      .optionBox {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 5px;
+      }
+      .optionBox p {
+        margin: 0;
+        flex: 1;
+      }
+      .optionBox input {
+        flex: 1;
+        margin-right: 10px;
+      }
+      .optionBox button {
+        margin-left: 5px;
+      }
+      #addBox,
+      #removeBox {
+        margin-top: 10px;
+        padding: 5px 10px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      #addBox:hover,
+      #removeBox:hover {
+        background-color: #0056b3;
+      }
+      .wrapper {
+        display: flex;
+        gap: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+    <div>関連情報</div>
+    <div class="">
+      <div id="container">
+        <!-- Initial Box -->
+        <div class="box">
+          <div>
+            <label
+              ><input
+                type="radio"
+                name="type-0"
+                value="dropdown"
+                checked
+                onchange="updateTitleOnRadioChange(this.parentElement)"
+              />
+              リスト式</label
+            >
+            <label
+              ><input
+                type="radio"
+                name="type-0"
+                value="checkbox"
+                onchange="updateTitleOnRadioChange(this.parentElement)"
+              />
+              チェックボックス式</label
+            >
+            <label
+              ><input
+                type="radio"
+                name="type-0"
+                value="radio"
+                onchange="updateTitleOnRadioChange(this.parentElement)"
+              />
+              ラジオボタン式</label
+            >
+          </div>
+          <div class="box-title-container">
+            <p class="box-title">選択してください（1点）</p>
+          </div>
 
-      <div class="options">
-        <!-- Options will be added here -->
+          <div class="options">
+            <!-- Options will be added here -->
+          </div>
+          <div class="add-option-container">
+            <input type="text" placeholder="Add Option" />
+            <button type="button" onclick="addOption(this)">Add</button>
+          </div>
+        </div>
       </div>
-      <div class="add-option-container">
-        <input type="text" placeholder="Add Option">
-        <button type="button" onclick="addOption(this)">Add</button>
-      </div>
+      <button id="addBox" type="button">Add Box</button>
+      <button id="removeBox" type="button">Remove Box</button>
     </div>
-  </div>
-  <button id="addBox" type="button">Add Box</button>
-  <button id="removeBox" type="button">Remove Box</button>
 
-  <script>
-    let boxCount = 1;
+    <script>
+      let boxCount = 1;
 
-    function toggleTitleEdit(button) {
-      const container = button.parentElement;
-      const title = container.querySelector('.box-title');
-      const input = container.querySelector('.box-title-input');
+      function toggleTitleEdit(button) {
+        const container = button.parentElement;
+        const title = container.querySelector(".box-title");
+        const input = container.querySelector(".box-title-input");
 
-      if (input.style.display === 'none') {
-        input.value = title.textContent;
-        title.style.display = 'none';
-        input.style.display = 'block';
-        button.textContent = 'Save';
-      } else {
-        title.textContent = input.value || 'Untitled Box';
-        input.style.display = 'none';
-        title.style.display = 'block';
-        button.textContent = 'Edit';
-      }
-    }
-
-    function addOption(button) {
-      const container = button.parentElement;
-      const input = container.querySelector('input');
-      const optionsDiv = container.previousElementSibling;
-
-      if (input.value.trim() === '') {
-        alert('Option name cannot be empty!');
-        return;
+        if (input.style.display === "none") {
+          input.value = title.textContent;
+          title.style.display = "none";
+          input.style.display = "block";
+          button.textContent = "Save";
+        } else {
+          title.textContent = input.value || "Untitled Box";
+          input.style.display = "none";
+          title.style.display = "block";
+          button.textContent = "Edit";
+        }
       }
 
-      const newOption = document.createElement('div');
-      newOption.className = 'optionBox';
-      newOption.innerHTML = `
+      function addOption(button) {
+        const container = button.parentElement;
+        const input = container.querySelector("input");
+        const optionsDiv = container.previousElementSibling;
+
+        if (input.value.trim() === "") {
+          alert("Option name cannot be empty!");
+          return;
+        }
+
+        const newOption = document.createElement("div");
+        newOption.className = "optionBox";
+        newOption.innerHTML = `
         <p>${input.value}</p>
         <input type="text" style="display: none;" value="${input.value}">
         <button type="button" onclick="editOption(this)">Edit</button>
         <button type="button" onclick="removeOption(this)">Remove</button>
       `;
-      optionsDiv.appendChild(newOption);
-      input.value = ''; // Clear the input field
-    }
-
-    function editOption(button) {
-      const optionBox = button.parentElement;
-      const text = optionBox.querySelector('p');
-      const input = optionBox.querySelector('input');
-
-      if (input.style.display === 'none') {
-        input.value = text.textContent;
-        text.style.display = 'none';
-        input.style.display = 'block';
-        button.textContent = 'Save';
-      } else {
-        text.textContent = input.value || 'Untitled Option';
-        input.style.display = 'none';
-        text.style.display = 'block';
-        button.textContent = 'Edit';
+        optionsDiv.appendChild(newOption);
+        input.value = ""; // Clear the input field
       }
-    }
 
-    function removeOption(button) {
-      const optionBox = button.parentElement;
-      optionBox.remove();
-    }
+      function editOption(button) {
+        const optionBox = button.parentElement;
+        const text = optionBox.querySelector("p");
+        const input = optionBox.querySelector("input");
 
-    document.getElementById('addBox').addEventListener('click', () => {
-      const container = document.getElementById('container');
-      const newBox = document.createElement('div');
-      newBox.className = 'box';
-      newBox.innerHTML = `
+        if (input.style.display === "none") {
+          input.value = text.textContent;
+          text.style.display = "none";
+          input.style.display = "block";
+          button.textContent = "Save";
+        } else {
+          text.textContent = input.value || "Untitled Option";
+          input.style.display = "none";
+          text.style.display = "block";
+          button.textContent = "Edit";
+        }
+      }
+
+      function removeOption(button) {
+        const optionBox = button.parentElement;
+        optionBox.remove();
+      }
+
+      function updateTitleOnRadioChange(radioGroup) {
+        const box = radioGroup.closest(".box");
+        const title = box.querySelector(".box-title");
+        const selectedValue = radioGroup.querySelector(
+          'input[type="radio"]:checked'
+        ).value;
+
+        if (selectedValue === "checkbox") {
+          title.textContent = "選択してください（複数可）";
+        } else {
+          title.textContent = "選択してください（1点）";
+        }
+      }
+
+      document.getElementById("addBox").addEventListener("click", () => {
+        const container = document.getElementById("container");
+        const newBox = document.createElement("div");
+        newBox.className = "box";
+        newBox.innerHTML = `
         <div class="box-title-container">
-          <p class="box-title">Related Information</p>
-          <input type="text" class="box-title-input" style="display: none;" placeholder="Enter box title">
-          <button type="button" onclick="toggleTitleEdit(this)">Edit</button>
+          <p class="box-title">選択してください（1点）</p>
         </div>
         <div>
-          <label><input type="radio" name="type-${boxCount}" value="dropdown" checked> Dropdown</label>
-          <label><input type="radio" name="type-${boxCount}" value="checkbox"> Checkbox</label>
-          <label><input type="radio" name="type-${boxCount}" value="radio"> Radio</label>
+          <label><input type="radio" name="type-${boxCount}" value="dropdown" checked onchange="updateTitleOnRadioChange(this.parentElement)"> Dropdown</label>
+          <label><input type="radio" name="type-${boxCount}" value="checkbox" onchange="updateTitleOnRadioChange(this.parentElement)"> Checkbox</label>
+          <label><input type="radio" name="type-${boxCount}" value="radio" onchange="updateTitleOnRadioChange(this.parentElement)"> Radio</label>
         </div>
         <div class="options">
           <!-- Options will be added here -->
@@ -210,19 +255,26 @@
           <button type="button" onclick="addOption(this)">Add</button>
         </div>
       `;
-      container.appendChild(newBox);
-      boxCount++;
-    });
+        container.appendChild(newBox);
+        boxCount++;
+      });
 
-    document.getElementById('removeBox').addEventListener('click', () => {
-      const container = document.getElementById('container');
-      const boxes = container.getElementsByClassName('box');
-      if (boxes.length > 1) {
-        container.removeChild(boxes[boxes.length - 1]);
-      } else {
-        alert('You must keep at least one box!');
-      }
-    });
-  </script>
-</body>
+      document.getElementById("removeBox").addEventListener("click", () => {
+        const container = document.getElementById("container");
+        const boxes = container.getElementsByClassName("box");
+        if (boxes.length > 1) {
+          container.removeChild(boxes[boxes.length - 1]);
+        } else {
+          alert("You must keep at least one box!");
+        }
+      });
+
+      // Add event listeners for the initial box
+      document.querySelectorAll('.box input[type="radio"]').forEach((radio) => {
+        radio.addEventListener("change", function () {
+          updateTitleOnRadioChange(this.closest(".box"));
+        });
+      });
+    </script>
+  </body>
 </html>
