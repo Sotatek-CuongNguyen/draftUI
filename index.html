@@ -121,6 +121,13 @@
         background-color: #f9f9f9; /* Màu nền */
         color: #333; /* Màu chữ */
       }
+      .text-area-label{
+        padding: 0;
+        margin: 0;
+        font-weight: bold;
+        margin-top: 10px;
+        color: #363535;
+      }
     </style>
   </head>
   <body>
@@ -172,7 +179,8 @@
             <button type="button" onclick="addOption(this)">Add</button>
           </div>
           <button class="remove-box-btn" onclick="removeBox(this)">X</button>
-          <textarea placeholder="freetext" rows="4" disabled></textarea>
+          <p class="text-area-label">コメント欄</p>
+          <textarea rows="4" disabled></textarea>
         </div>
       </div>
       <button id="addBox" type="button" onclick="addNewBox()">Add Box</button>
@@ -305,7 +313,8 @@ function addOption(button) {
       <input type="text" placeholder="Add Option">
       <button type="button" onclick="addOption(this)">Add</button>
     </div>
-    <textarea placeholder="freetext" rows="4" disabled></textarea>
+    <p class="text-area-label">コメント欄</p>
+    <textarea rows="4" disabled></textarea>
     <button class="remove-box-btn" onclick="removeBox(this)">X</button>
   `;
         container.appendChild(newBox);
